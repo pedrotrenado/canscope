@@ -1,0 +1,49 @@
+VERSION ""
+
+NS_ :
+
+BS_:
+
+BU_: ECU BMS BCM Dash
+
+BO_ 256 EngineData: 8 ECU
+ SG_ EngineSpeed : 0|16@1+ (0.25,0) [0|8000] "rpm" Dash
+ SG_ EngineTemp : 16|8@1+ (1,-40) [-40|150] "degC" Dash
+ SG_ ThrottlePos : 24|8@1+ (0.4,0) [0|100] "%" Dash
+ SG_ OilPressure : 32|8@1+ (0.05,0) [0|10] "bar" Dash
+
+BO_ 512 VehicleSpeed: 8 ECU
+ SG_ Speed : 7|16@0+ (0.01,0) [0|250] "km/h" Dash
+ SG_ Gear : 23|4@0+ (1,0) [0|5] "" Dash
+ SG_ SteeringAngle : 31|16@0- (0.1,0) [-540|540] "deg" Dash
+
+BO_ 768 BatteryStatus: 8 BMS
+ SG_ PackVoltage : 0|12@1+ (0.01,0) [0|40] "V" Dash
+ SG_ PackCurrent : 16|16@1- (0.1,0) [-300|300] "A" Dash
+ SG_ StateOfCharge : 32|7@1+ (1,0) [0|100] "%" Dash
+ SG_ CellTempMax : 40|8@1- (1,0) [-40|80] "degC" Dash
+
+BO_ 1024 BodyLights: 2 BCM
+ SG_ Headlights : 0|1@1+ (1,0) [0|1] "" Dash
+ SG_ LeftIndicator : 1|1@1+ (1,0) [0|1] "" Dash
+ SG_ RightIndicator : 2|1@1+ (1,0) [0|1] "" Dash
+ SG_ BrakeLight : 3|1@1+ (1,0) [0|1] "" Dash
+ SG_ AmbientLight : 8|8@1+ (1,0) [0|255] "lux" Dash
+
+BO_ 2566844672 CruiseControl: 8 ECU
+ SG_ CruiseActive : 0|1@1+ (1,0) [0|1] "" Dash
+ SG_ SetSpeed : 8|8@1+ (1,0) [0|250] "km/h" Dash
+ SG_ Distance : 16|8@1+ (0.5,0) [0|120] "m" Dash
+
+CM_ BO_ 2566844672 "29-bit extended ID, J1939 style.";
+CM_ SG_ 512 Speed "Big-endian (Motorola) signal.";
+
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 65535;
+BA_DEF_DEF_ "GenMsgCycleTime" 100;
+BA_ "GenMsgCycleTime" BO_ 256 20;
+BA_ "GenMsgCycleTime" BO_ 512 50;
+BA_ "GenMsgCycleTime" BO_ 768 100;
+BA_ "GenMsgCycleTime" BO_ 1024 200;
+BA_ "GenMsgCycleTime" BO_ 2566844672 500;
+
+VAL_ 512 Gear 0 "P" 1 "R" 2 "N" 3 "D" 4 "S" 5 "M";
