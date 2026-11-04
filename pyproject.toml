@@ -23,6 +23,10 @@ classifiers = [
     "Topic :: System :: Networking :: Monitoring",
 ]
 
+[project.urls]
+Homepage = "https://github.com/pedrotrenado/canscope"
+Issues = "https://github.com/pedrotrenado/canscope/issues"
+
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.6"]
 
